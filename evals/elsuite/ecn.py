@@ -7,6 +7,9 @@ from evals import CompletionFn
 
 
 class Ecn(evals.Eval):
+    """
+    Inspiration taken from https://github.com/alan-eu/evals/blob/main/evals/elsuite/translate.py
+    """
     def __init__(
         self,
         completion_fns: list[CompletionFn],
@@ -74,9 +77,7 @@ class Ecn(evals.Eval):
         )
         sampled = result.get_completions()[0].strip()
 
-        valid_format = re.fullmatch(r'(^[A-E]$)|(^[A-E](,[A-E]){0,4}$)', sampled) is not None
-
-        match = sampled == expected
+        valid_format = re.fullmatch(r'(^[A-E](,[A-E]){0,4}$)', sampled) is not None
 
         if valid_format:
             sampled_answers = set(sampled.split(','))
@@ -96,6 +97,8 @@ class Ecn(evals.Eval):
                 score = 0
         else:
             score = 0
+
+        match = score == 1.
 
         evals.record.record_match(
             match, expected=expected, sampled=sampled, score=score, valid_format=valid_format,
