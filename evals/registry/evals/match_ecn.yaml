@@ -1,0 +1,13 @@
+match_ecn:
+  id: match_ecn.test.v1
+  metrics:
+  - accuracy
+  - total_score
+  - average_score
+  - valid_format
+match_ecn.test.v1:
+  args:
+    few_shot_jsonl: ecn/few_shot.jsonl
+    num_few_shot: 4
+    samples_jsonl: ecn/samples.jsonl
+  class: evals.elsuite.ecn:Ecn
