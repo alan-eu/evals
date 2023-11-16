@@ -72,10 +72,26 @@ class Ecn(evals.Eval):
                 prompt += s["sample"]
             prompt += sample["input"][-1:]
 
-        result = self.completion_fn(
-            prompt=prompt,
-        )
-        sampled = result.get_completions()[0].strip()
+        # result = self.completion_fn(
+        #     prompt=prompt,
+        # )
+        # sampled = result.get_completions()[0].strip()
+
+        random_result_array = []
+
+        while len(random_result_array) == 0:
+            if random.random() < 0.5:
+                random_result_array.append("A")
+            if random.random() < 0.5:
+                random_result_array.append("B")
+            if random.random() < 0.5:
+                random_result_array.append("C")
+            if random.random() < 0.5:
+                random_result_array.append("D")
+            if random.random() < 0.5:
+                random_result_array.append("E")
+
+        sampled = ",".join(random_result_array)
 
         valid_format = re.fullmatch(r'(^[A-E](,[A-E]){0,4}$)', sampled) is not None
 
